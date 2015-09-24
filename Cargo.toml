@@ -3,3 +3,16 @@ name = "algo"
 version = "0.1.0"
 authors = ["Aleksandr Pak <alekspak@icloud.com>"]
 
+description = "Algorithms & Data Structure implementations"
+repository = "https://github.com/aleksandrpak/algo"
+
+license = "MIT"
+
+readme = "README.md"
+
+keywords = ["algorithm"]
+
+exclude = [
+    ".travis.yml",
+    "src/kmp/test.rs"
+]
