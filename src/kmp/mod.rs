@@ -24,10 +24,10 @@ pub fn build_table<T: PartialEq>(pattern: &[T]) -> Box<[isize]> {
 
 pub fn find_first<T: PartialEq>(target: &[T], pattern: &[T]) -> Option<usize> {
     let table = build_table(pattern);
-    find_first_with_table(target, pattern, table)
+    find_first_with_table(target, pattern, &table)
 }
 
-pub fn find_first_with_table<T: PartialEq>(target: &[T], pattern: &[T], table: Box<[isize]>) -> Option<usize> {
+pub fn find_first_with_table<T: PartialEq>(target: &[T], pattern: &[T], table: &[isize]) -> Option<usize> {
     let n = target.len();
     let m = pattern.len() as isize;
 
@@ -51,4 +51,38 @@ pub fn find_first_with_table<T: PartialEq>(target: &[T], pattern: &[T], table: B
     }
 
     None
+}
+
+pub fn find_all<T: PartialEq>(target: &[T], pattern: &[T]) -> Vec<usize> {
+    let table = build_table(pattern);
+    find_all_with_table(target, pattern, &table)
+}
+
+pub fn find_all_with_table<T: PartialEq>(target: &[T], pattern: &[T], table: &[isize]) -> Vec<usize> {
+    let mut results = vec![];
+    let mut index;
+
+    match find_first_with_table(target, pattern, table) {
+        Some(result) => {
+            results.push(result);
+            index = result;
+        },
+        None => return results
+    }
+
+    let n = target.len();
+    let m = pattern.len();
+
+    while index + m < n {
+        let next = index + 1;
+        match find_first_with_table(&target[next..], pattern, table) {
+            Some(result) => {
+                results.push(next + result);
+                index = next + result;
+            },
+            None => break
+        }
+    }
+
+    results
 }
