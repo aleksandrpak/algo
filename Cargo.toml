@@ -14,5 +14,4 @@ keywords = ["algorithm"]
 
 exclude = [
     ".travis.yml",
-    "src/kmp/test.rs"
 ]
