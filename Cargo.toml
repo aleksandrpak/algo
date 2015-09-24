@@ -1,6 +1,6 @@
 [package]
 name = "algo"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Aleksandr Pak <alekspak@icloud.com>"]
 
 description = "Algorithms & Data Structure implementations"
