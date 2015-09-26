@@ -14,7 +14,23 @@ fn assert_find_all_test_cases() {
     }
 }
 
-// TODO: Write benchmarks when they will be stable
+#[bench]
+fn bencn_find_first_test_cases(b: &mut ::test::Bencher) {
+    b.iter(|| {
+        for (_, t, p) in find_first_test_cases() {
+            find_first(t.as_bytes(), p.as_bytes());
+        }
+    })
+}
+
+#[bench]
+fn bencn_find_all_test_cases(b: &mut ::test::Bencher) {
+    b.iter(|| {
+        for (_, t, p) in find_all_test_cases() {
+            find_all(t.as_bytes(), p.as_bytes());
+        }
+    })
+}
 
 fn find_first_test_cases() -> Vec<(Option<usize>, &'static str, &'static str)> {
     vec![
