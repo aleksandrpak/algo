@@ -3,3 +3,6 @@ Algoritms implementations in Rust
 
 ## Search
 * KMP
+
+## Math
+* Binary GCD
