@@ -1,1 +1,1 @@
-pub mod kmp;
+pub mod search;
