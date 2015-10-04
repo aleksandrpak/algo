@@ -6,4 +6,3 @@
 pub mod math;
 pub mod search;
 pub mod matrix;
-pub mod graph;
