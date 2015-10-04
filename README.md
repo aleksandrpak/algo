@@ -5,6 +5,6 @@ Algoritms implementations in Rust
 * KMP
 
 ## Math
-* Euclid GCDA
+* Euclid GCD
 * Binary GCD
 * LCM
