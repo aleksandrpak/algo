@@ -1,1 +1,3 @@
-pub mod fibonacci;
+pub use self::fibonacci::FibonacciHeap;
+
+mod fibonacci;
