@@ -8,6 +8,8 @@ use std::cmp::Ordering;
 pub struct FibonacciHeap<T: PartialOrd> {
     size: usize,
     min: Link<T>,
+    tree_table: Vec<Link<T>>,
+    to_visit: Vec<Link<T>>,
 }
 
 struct Entry<T: PartialOrd> {
@@ -33,6 +35,8 @@ impl <T: PartialOrd> FibonacciHeap<T> {
         FibonacciHeap {
             min: Link::None,
             size: 0,
+            to_visit: Vec::new(),
+            tree_table: Vec::new(),
         }
     }
 
@@ -96,33 +100,30 @@ impl <T: PartialOrd> FibonacciHeap<T> {
             return min.into_value();
         }
 
-        let mut tree_table = vec![];
-        let mut to_visit = Vec::<Link<T>>::new();
-
         let mut current = self.min.clone();
-        while to_visit.is_empty() || !to_visit[0].are_same(&current) {
+        while self.to_visit.is_empty() || !self.to_visit[0].are_same(&current) {
             let next = current.get_next();
-            to_visit.push(current);
+            self.to_visit.push(current);
             current = next;
         }
 
-        for link_to_visit in to_visit {
-            let mut link = link_to_visit;
+        for link_to_visit in &self.to_visit {
+            let mut link = link_to_visit.clone();
 
             loop {
                 let link_degree = link.get_degree();
 
-                while link_degree >= tree_table.len() {
-                    tree_table.push(Link::None);
+                while link_degree >= self.tree_table.len() {
+                    self.tree_table.push(Link::None);
                 }
 
-                if tree_table[link_degree].is_none() {
-                    tree_table[link_degree] = link.clone();
+                if self.tree_table[link_degree].is_none() {
+                    self.tree_table[link_degree] = link.clone();
                     break;
                 }
 
-                tree_table.push(Link::None);
-                let other = tree_table.swap_remove(link_degree);
+                self.tree_table.push(Link::None);
+                let other = self.tree_table.swap_remove(link_degree);
 
                 let (mut min_link, mut max) = if link < other {
                     (link, other)
@@ -154,6 +155,9 @@ impl <T: PartialOrd> FibonacciHeap<T> {
                 self.min = link;
             }
         }
+
+        self.to_visit.clear();
+        self.tree_table.clear();
 
         min.into_value()
     }
@@ -450,25 +454,10 @@ fn test_order() {
 }
 
 #[bench]
-fn bench_push_pop_fibonacci(b: &mut ::test::Bencher) {
+fn bench_push_pop(b: &mut ::test::Bencher) {
     b.iter(|| {
         // TODO: Optimize heap
         let mut heap = FibonacciHeap::new();
-
-        for i in 1..10001 {
-            heap.push(10001 - i);
-        }
-
-        for _ in 1..10001 {
-            heap.pop();
-        }
-    })
-}
-
-#[bench]
-fn bench_push_pop_binary(b: &mut ::test::Bencher) {
-    b.iter(|| {
-        let mut heap = ::std::collections::BinaryHeap::new();
 
         for i in 1..10001 {
             heap.push(10001 - i);
