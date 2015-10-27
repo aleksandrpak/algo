@@ -1,6 +1,8 @@
 pub use self::fibonacci::FibonacciHeap;
+pub use self::unsafe_fibonacci::FibonacciHeap as UnsafeFibonacciHeap;
 
 mod fibonacci;
+mod unsafe_fibonacci;
 
 #[bench]
 fn bench_push_pop_binary(b: &mut ::test::Bencher) {
