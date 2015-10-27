@@ -235,6 +235,7 @@ impl <T: PartialOrd> Link<T> {
         Link { entry: entry }
     }
 
+    #[inline]
     pub fn get_degree(&self) -> usize {
         if self.is_none() {
             0
@@ -245,6 +246,7 @@ impl <T: PartialOrd> Link<T> {
         }
     }
 
+    #[inline]
     pub fn inc_degree(&mut self) {
         if self.is_some() {
             unsafe {
@@ -260,19 +262,16 @@ impl <T: PartialOrd> Link<T> {
             let mut raw_entry: *mut Entry<T> = ptr::null_mut();
             mem::swap(&mut raw_entry, &mut self.entry);
 
-            let mut entry: Entry<T>;
-
+            let entry: Entry<T>;
             unsafe {
                 entry = *Box::from_raw(raw_entry);
             }
-
-            entry.next = Link::none();
-            entry.prev = Link::none();
 
             Some(entry.value)
         }
     }
 
+    #[inline]
     pub fn borrow(&self) -> Option<&T> {
         if self.is_none() {
             None
@@ -283,6 +282,7 @@ impl <T: PartialOrd> Link<T> {
         }
     }
 
+    #[inline]
     pub fn are_same(&self, other: &Link<T>) -> bool {
         self.entry == other.entry
     }
