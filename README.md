@@ -3,7 +3,7 @@ Algoritms implementations in Rust
 
 ## Data Structures
 ### Heap
-* Fibonacci Heap
+* Fibonacci Heap (Safe and Unsafe versions)
 
 ## Search
 * KMP
