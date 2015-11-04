@@ -12,3 +12,6 @@ Algoritms and data structures implementations in Rust
 * Euclid GCD
 * Binary GCD
 * LCM
+
+## Benchmarks
+* TODO
