@@ -6,7 +6,7 @@ authors = ["Aleksandr Pak <alekspak@icloud.com>"]
 description = "Algorithms & Data Structure implementations"
 repository = "https://github.com/aleksandrpak/algo"
 
-license = "MIT"
+license = "MIT/Apache-2.0"
 
 readme = "README.md"
 
