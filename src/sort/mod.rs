@@ -1,3 +1,17 @@
 pub use self::insertion::sort as insertion_sort;
+pub use self::insertion::sort_with_copy as insertion_sort_with_copy;
+pub use self::insertion::sort_with_binary_search as insertion_sort_with_binary_search;
+
+pub use self::selection::sort as selection_sort;
 
 mod insertion;
+mod selection;
+
+#[bench]
+fn bench_sort_default(b: &mut ::test::Bencher) {
+    b.iter(|| {
+        let mut arr: Vec<u32> = (0..1000).rev().collect();
+
+        arr.sort();
+    })
+}

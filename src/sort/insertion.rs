@@ -27,8 +27,21 @@ pub fn sort_with_copy<T: PartialOrd + Copy>(arr: &mut [T]) {
     }
 }
 
+pub fn sort_with_binary_search<T: Ord>(arr: &mut [T]) {
+    for i in 1..arr.len() {
+        match arr[0..i].binary_search(&arr[i]) {
+            Ok(_) => continue,
+            Err(idx) => {
+                for j in 0..(i - idx) {
+                    arr.swap(i - j, i - j - 1);
+                }
+            }
+        }
+    }
+}
+
 #[test]
-fn test_insertion_sort_simple() {
+fn test_sort_simple() {
     let mut arr = [-5, 4, 1, -3, 2];
 
     sort(&mut arr);
@@ -37,10 +50,19 @@ fn test_insertion_sort_simple() {
 }
 
 #[test]
-fn test_insertion_sort_with_copy() {
+fn test_sort_with_copy() {
     let mut arr = [-5, 4, 1, -3, 2];
 
     sort_with_copy(&mut arr);
+
+    assert!(arr == [-5, -3, 1, 2, 4]);
+}
+
+#[test]
+fn test_sort_with_binary_search() {
+    let mut arr = [-5, 4, 1, -3, 2];
+
+    sort_with_binary_search(&mut arr);
 
     assert!(arr == [-5, -3, 1, 2, 4]);
 }
@@ -60,5 +82,14 @@ fn bench_sort_with_copy(b: &mut ::test::Bencher) {
         let mut arr: Vec<u32> = (0..1000).rev().collect();
 
         sort_with_copy(&mut arr);
+    })
+}
+
+#[bench]
+fn bench_sort_with_binary_search(b: &mut ::test::Bencher) {
+    b.iter(|| {
+        let mut arr: Vec<u32> = (0..1000).rev().collect();
+
+        sort_with_binary_search(&mut arr);
     })
 }

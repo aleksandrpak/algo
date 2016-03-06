@@ -13,6 +13,10 @@ Algoritms and data structures implementations in Rust
 * Binary GCD
 * LCM
 
+## Sort
+* Insertion (Simple, With Copy, With Binary Search)
+* Selection
+
 ## Benchmarks
 * TODO
 
