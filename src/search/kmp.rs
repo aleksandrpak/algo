@@ -86,14 +86,14 @@ pub fn find_all_with_table<T: PartialEq>(target: &[T], pattern: &[T], table: &[i
 }
 
 #[test]
-fn assert_find_first_test_cases() {
+fn test_find_first_test_cases() {
     for (e, t, p) in find_first_test_cases() {
         assert_eq!(e, find_first(t.as_bytes(), p.as_bytes()));
     }
 }
 
 #[test]
-fn assert_find_all_test_cases() {
+fn test_find_all_test_cases() {
     for (e, t, p) in find_all_test_cases() {
         assert_eq!(e, find_all(t.as_bytes(), p.as_bytes()));
     }
