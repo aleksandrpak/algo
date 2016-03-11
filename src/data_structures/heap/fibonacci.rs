@@ -18,7 +18,6 @@ struct Entry<T: PartialOrd> {
     pub degree: usize,
     // TODO: Implement decrease_key and delete
     // pub is_marked: bool,
-
     pub parent: Link<T>,
     pub next: Link<T>,
     pub prev: Link<T>,
@@ -27,10 +26,10 @@ struct Entry<T: PartialOrd> {
 
 enum Link<T: PartialOrd> {
     None,
-    Some(Rc<RefCell<Entry<T>>>)
+    Some(Rc<RefCell<Entry<T>>>),
 }
 
-impl <T: PartialOrd> FibonacciHeap<T> {
+impl<T: PartialOrd> FibonacciHeap<T> {
     pub fn new() -> FibonacciHeap<T> {
         FibonacciHeap {
             min: Link::None,
@@ -186,19 +185,22 @@ impl <T: PartialOrd> FibonacciHeap<T> {
             y.set_next(&x_next);
             x_next.set_prev(&y);
 
-            if x < y { x } else { y }
+            if x < y {
+                x
+            } else {
+                y
+            }
         }
     }
 }
 
-impl <T: PartialOrd> Entry<T> {
+impl<T: PartialOrd> Entry<T> {
     pub fn new(value: T) -> Entry<T> {
         Entry {
             value: value,
 
             degree: 0,
             // is_marked: false,
-
             parent: Link::None,
             next: Link::None,
             prev: Link::None,
@@ -207,11 +209,11 @@ impl <T: PartialOrd> Entry<T> {
     }
 }
 
-impl <T: PartialOrd> Link<T> {
+impl<T: PartialOrd> Link<T> {
     pub fn is_none(&self) -> bool {
         match self {
             &Link::None => true,
-            _ => false
+            _ => false,
         }
     }
 
@@ -233,7 +235,7 @@ impl <T: PartialOrd> Link<T> {
     pub fn get_degree(&self) -> usize {
         match self {
             &Link::None => 0,
-            &Link::Some(ref rc) => rc.borrow().degree
+            &Link::Some(ref rc) => rc.borrow().degree,
         }
     }
 
@@ -262,7 +264,7 @@ impl <T: PartialOrd> Link<T> {
     pub fn borrow(&self) -> Option<Ref<T>> {
         match self {
             &Link::Some(ref rc) => Some(Ref::map(rc.borrow(), |entry| &entry.value)),
-            &Link::None => None
+            &Link::None => None,
         }
     }
 
@@ -273,7 +275,8 @@ impl <T: PartialOrd> Link<T> {
                 match other {
                     &Link::None => false,
                     &Link::Some(ref other_rc) => {
-                        &(*rc.borrow()) as *const Entry<T> == &(*other_rc.borrow()) as *const Entry<T>
+                        &(*rc.borrow()) as *const Entry<T> ==
+                        &(*other_rc.borrow()) as *const Entry<T>
                     }
                 }
             }
@@ -286,10 +289,10 @@ impl <T: PartialOrd> Link<T> {
                 let entry = rc.borrow();
                 match &entry.child {
                     &Link::Some(ref child_rc) => Link::Some(child_rc.clone()),
-                    &Link::None => Link::None
+                    &Link::None => Link::None,
                 }
-            },
-            &Link::None => Link::None
+            }
+            &Link::None => Link::None,
         }
     }
 
@@ -299,10 +302,10 @@ impl <T: PartialOrd> Link<T> {
                 let entry = rc.borrow();
                 match &entry.next {
                     &Link::Some(ref next_rc) => Link::Some(next_rc.clone()),
-                    &Link::None => Link::None
+                    &Link::None => Link::None,
                 }
-            },
-            &Link::None => Link::None
+            }
+            &Link::None => Link::None,
         }
     }
 
@@ -312,10 +315,10 @@ impl <T: PartialOrd> Link<T> {
                 let entry = rc.borrow();
                 match &entry.prev {
                     &Link::Some(ref prev_rc) => Link::Some(prev_rc.clone()),
-                    &Link::None => Link::None
+                    &Link::None => Link::None,
                 }
-            },
-            &Link::None => Link::None
+            }
+            &Link::None => Link::None,
         }
     }
 
@@ -324,7 +327,7 @@ impl <T: PartialOrd> Link<T> {
             &mut Link::Some(ref rc) => {
                 let mut entry = rc.borrow_mut();
                 entry.child = child.clone();
-            },
+            }
             _ => {}
         }
     }
@@ -334,7 +337,7 @@ impl <T: PartialOrd> Link<T> {
             &mut Link::Some(ref rc) => {
                 let mut entry = rc.borrow_mut();
                 entry.parent = parent.clone();
-            },
+            }
             _ => {}
         }
     }
@@ -344,7 +347,7 @@ impl <T: PartialOrd> Link<T> {
             &mut Link::Some(ref rc) => {
                 let mut entry = rc.borrow_mut();
                 entry.next = next.clone();
-            },
+            }
             _ => {}
         }
     }
@@ -354,22 +357,22 @@ impl <T: PartialOrd> Link<T> {
             &mut Link::Some(ref rc) => {
                 let mut entry = rc.borrow_mut();
                 entry.prev = prev.clone();
-            },
+            }
             _ => {}
         }
     }
 }
 
-impl <T: PartialOrd> Clone for Link<T> {
+impl<T: PartialOrd> Clone for Link<T> {
     fn clone(&self) -> Self {
         match self {
             &Link::None => Link::None,
-            &Link::Some(ref rc) => Link::Some(rc.clone())
+            &Link::Some(ref rc) => Link::Some(rc.clone()),
         }
     }
 }
 
-impl <T: PartialOrd> PartialEq for Link<T> {
+impl<T: PartialOrd> PartialEq for Link<T> {
     #[inline]
     fn eq(&self, other: &Link<T>) -> bool {
         match self {
@@ -377,16 +380,14 @@ impl <T: PartialOrd> PartialEq for Link<T> {
             &Link::Some(ref rc) => {
                 match other {
                     &Link::None => false,
-                    &Link::Some(ref other_rc) => {
-                        rc.borrow().value.eq(&other_rc.borrow().value)
-                    }
+                    &Link::Some(ref other_rc) => rc.borrow().value.eq(&other_rc.borrow().value),
                 }
             }
         }
     }
 }
 
-impl <T: PartialOrd> PartialOrd for Link<T> {
+impl<T: PartialOrd> PartialOrd for Link<T> {
     #[inline]
     fn partial_cmp(&self, other: &Link<T>) -> Option<Ordering> {
         match self {

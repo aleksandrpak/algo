@@ -17,7 +17,6 @@ struct Entry<T: PartialOrd> {
     pub degree: usize,
     // TODO: Implement decrease_key and delete
     // pub is_marked: bool,
-
     pub parent: Link<T>,
     pub next: Link<T>,
     pub prev: Link<T>,
@@ -25,10 +24,10 @@ struct Entry<T: PartialOrd> {
 }
 
 struct Link<T: PartialOrd> {
-    entry: *mut Entry<T>
+    entry: *mut Entry<T>,
 }
 
-impl <T: PartialOrd> FibonacciHeap<T> {
+impl<T: PartialOrd> FibonacciHeap<T> {
     pub fn new() -> FibonacciHeap<T> {
         FibonacciHeap {
             min: Link::none(),
@@ -184,19 +183,22 @@ impl <T: PartialOrd> FibonacciHeap<T> {
             y.set_next(&x_next);
             x_next.set_prev(&y);
 
-            if x < y { x } else { y }
+            if x < y {
+                x
+            } else {
+                y
+            }
         }
     }
 }
 
-impl <T: PartialOrd> Entry<T> {
+impl<T: PartialOrd> Entry<T> {
     pub fn new(value: T) -> Entry<T> {
         Entry {
             value: value,
 
             degree: 0,
             // is_marked: false,
-
             parent: Link::none(),
             next: Link::none(),
             prev: Link::none(),
@@ -205,7 +207,7 @@ impl <T: PartialOrd> Entry<T> {
     }
 }
 
-impl <T: PartialOrd> Link<T> {
+impl<T: PartialOrd> Link<T> {
     #[inline]
     pub fn none() -> Link<T> {
         Link { entry: ptr::null_mut() }
@@ -240,9 +242,7 @@ impl <T: PartialOrd> Link<T> {
         if self.is_none() {
             0
         } else {
-            unsafe {
-                (*self.entry).degree
-            }
+            unsafe { (*self.entry).degree }
         }
     }
 
@@ -276,9 +276,7 @@ impl <T: PartialOrd> Link<T> {
         if self.is_none() {
             None
         } else {
-            unsafe {
-                Some(&(*self.entry).value)
-            }
+            unsafe { Some(&(*self.entry).value) }
         }
     }
 
@@ -292,9 +290,7 @@ impl <T: PartialOrd> Link<T> {
         if self.is_none() {
             Link::<T>::none()
         } else {
-            unsafe {
-                (*self.entry).child.clone()
-            }
+            unsafe { (*self.entry).child.clone() }
         }
     }
 
@@ -303,9 +299,7 @@ impl <T: PartialOrd> Link<T> {
         if self.is_none() {
             Link::<T>::none()
         } else {
-            unsafe {
-                (*self.entry).next.clone()
-            }
+            unsafe { (*self.entry).next.clone() }
         }
     }
 
@@ -314,9 +308,7 @@ impl <T: PartialOrd> Link<T> {
         if self.is_none() {
             Link::<T>::none()
         } else {
-            unsafe {
-                (*self.entry).prev.clone()
-            }
+            unsafe { (*self.entry).prev.clone() }
         }
     }
 
@@ -357,35 +349,31 @@ impl <T: PartialOrd> Link<T> {
     }
 }
 
-impl <T: PartialOrd> Clone for Link<T> {
+impl<T: PartialOrd> Clone for Link<T> {
     #[inline]
     fn clone(&self) -> Self {
         Link { entry: self.entry.clone() }
     }
 }
 
-impl <T: PartialOrd> PartialEq for Link<T> {
+impl<T: PartialOrd> PartialEq for Link<T> {
     #[inline]
     fn eq(&self, other: &Link<T>) -> bool {
         if self.is_none() || other.is_none() {
             false
         } else {
-            unsafe {
-                (*self.entry).value.eq(&(*other.entry).value)
-            }
+            unsafe { (*self.entry).value.eq(&(*other.entry).value) }
         }
     }
 }
 
-impl <T: PartialOrd> PartialOrd for Link<T> {
+impl<T: PartialOrd> PartialOrd for Link<T> {
     #[inline]
     fn partial_cmp(&self, other: &Link<T>) -> Option<Ordering> {
         if self.is_none() || other.is_none() {
             None
         } else {
-            unsafe {
-                (*self.entry).value.partial_cmp(&(*other.entry).value)
-            }
+            unsafe { (*self.entry).value.partial_cmp(&(*other.entry).value) }
         }
     }
 }

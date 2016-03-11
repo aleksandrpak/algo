@@ -4,8 +4,11 @@ pub use self::insertion::sort_with_binary_search as insertion_sort_with_binary_s
 
 pub use self::selection::sort as selection_sort;
 
+pub use self::merge::sort as merge_sort;
+
 mod insertion;
 mod selection;
+mod merge;
 
 #[bench]
 fn bench_sort_default(b: &mut ::test::Bencher) {
