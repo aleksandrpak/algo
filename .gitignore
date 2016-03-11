@@ -13,3 +13,4 @@ Cargo.lock
 
 # Vim
 *.swp
+*.bk
