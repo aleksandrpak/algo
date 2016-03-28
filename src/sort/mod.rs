@@ -6,9 +6,12 @@ pub use self::selection::sort as selection_sort;
 
 pub use self::merge::sort as merge_sort;
 
+pub use self::heap::sort as heap_sort;
+
 mod insertion;
 mod selection;
 mod merge;
+mod heap;
 
 #[bench]
 fn bench_sort_default(b: &mut ::test::Bencher) {

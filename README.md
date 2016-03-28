@@ -17,6 +17,7 @@ Algoritms and data structures implementations in Rust
 * Insertion (Simple, With Copy, With Binary Search)
 * Selection
 * Merge
+* Heap
 
 ## Benchmarks
 * TODO
