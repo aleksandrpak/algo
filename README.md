@@ -7,6 +7,7 @@ Algoritms and data structures implementations in Rust
 
 ## Search
 * KMP
+* Max subarray
 
 ## Math
 * Euclid GCD

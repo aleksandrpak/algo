@@ -2,14 +2,13 @@ use std::num::{Zero, One};
 use std::ops::{Shl, Shr, BitAnd, BitOr, Add, Sub, Neg, Rem};
 
 pub fn euclid_gcd<T>(mut u: T, mut v: T) -> T
-    where T: Copy,
-          T: Zero,
-          T: PartialEq,
-          T: PartialOrd,
-          T: Rem<Output = T>,
-          T: Neg<Output = T>
+where T: Copy,
+      T: Zero,
+      T: PartialEq,
+      T: PartialOrd,
+      T: Rem<Output = T>,
+      T: Neg<Output = T>
 {
-
     let mut t;
     let zero = T::zero();
     while v != zero {
@@ -26,19 +25,18 @@ pub fn euclid_gcd<T>(mut u: T, mut v: T) -> T
 }
 
 pub fn binary_gcd<T>(mut u: T, mut v: T) -> T
-    where T: Copy,
-          T: Zero,
-          T: One,
-          T: PartialEq,
-          T: PartialOrd,
-          T: Shl<T, Output = T>,
-          T: Shr<T, Output = T>,
-          T: BitAnd<Output = T>,
-          T: BitOr<Output = T>,
-          T: Add<Output = T>,
-          T: Sub<Output = T>
+where T: Copy,
+      T: Zero,
+      T: One,
+      T: PartialEq,
+      T: PartialOrd,
+      T: Shl<T, Output = T>,
+      T: Shr<T, Output = T>,
+      T: BitAnd<Output = T>,
+      T: BitOr<Output = T>,
+      T: Add<Output = T>,
+      T: Sub<Output = T>
 {
-
     if u == v {
         return u;
     }

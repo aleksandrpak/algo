@@ -1,4 +1,4 @@
-#![feature(zero_one)]
+#![feature(zero_one, inclusive_range_syntax)]
 
 #![cfg_attr(test, feature(test))]
 #[cfg(test)]
