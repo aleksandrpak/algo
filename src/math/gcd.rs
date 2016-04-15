@@ -1,5 +1,6 @@
 use std::num::{Zero, One};
 use std::ops::{Shl, Shr, BitAnd, BitOr, Add, Sub, Neg, Rem};
+use std::mem;
 
 pub fn euclid_gcd<T>(mut u: T, mut v: T) -> T
 where T: Copy,
@@ -66,9 +67,7 @@ where T: Copy,
         }
 
         if u > v {
-            let t = v;
-            v = u;
-            u = t;
+            mem::swap(&mut u, &mut v);
         }
 
         v = v - u;

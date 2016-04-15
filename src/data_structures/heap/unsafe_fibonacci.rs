@@ -226,8 +226,8 @@ impl<T: PartialOrd> Link<T> {
     pub fn new(value: T) -> Link<T> {
         let entry_box = Box::new(Entry::new(value));
         let entry = Box::into_raw(entry_box);
-        let prev = entry.clone();
-        let next = entry.clone();
+        let prev = entry;
+        let next = entry;
 
         unsafe {
             (*entry).prev = Link { entry: prev };
@@ -352,7 +352,7 @@ impl<T: PartialOrd> Link<T> {
 impl<T: PartialOrd> Clone for Link<T> {
     #[inline]
     fn clone(&self) -> Self {
-        Link { entry: self.entry.clone() }
+        Link { entry: self.entry }
     }
 }
 
