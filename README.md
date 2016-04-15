@@ -1,4 +1,4 @@
-# algo [![Build Status](https://travis-ci.org/aleksandrpak/algo.svg)](https://travis-ci.org/aleksandrpak/algo)
+# algo [![Build Status](https://travis-ci.org/aleksandrpak/algo.svg)](https://travis-ci.org/aleksandrpak/algo) [![Clippy Linting Result](https://clippy.bashy.io/github/aleksandrpak/algo/master/badge.svg)](https://clippy.bashy.io/github/aleksandrpak/algo/master/log)
 Algoritms and data structures implementations in Rust
 
 ## Data Structures
