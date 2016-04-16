@@ -14,4 +14,7 @@ keywords = ["algorithm"]
 
 exclude = [
     ".travis.yml",
+    ".appveyor.yml"
+    ".appveyor.bat"
 ]
+
