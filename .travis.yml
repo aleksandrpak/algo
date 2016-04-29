@@ -4,6 +4,7 @@ language: rust
 cache:
   - apt
   - pip
+  - cargo
 
 # necessary for `travis-cargo coveralls --no-sudo`
 addons:
