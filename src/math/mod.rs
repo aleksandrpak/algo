@@ -5,4 +5,3 @@ pub use self::lcm::lcm;
 
 mod gcd;
 mod lcm;
-mod strassen;
