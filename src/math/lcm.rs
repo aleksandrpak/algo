@@ -1,26 +1,12 @@
-use std::num::Zero;
-use std::ops::{Mul, Div, Neg, Rem};
+use super::Numeric;
 
 pub fn lcm<T>(u: T, v: T) -> T
-    where T: Copy,
-          T: Zero,
-          T: PartialEq,
-          T: PartialOrd,
-          T: Mul<Output = T>,
-          T: Div<Output = T>,
-          T: Rem<Output = T>,
-          T: Neg<Output = T>
+    where T: Copy + Numeric
 {
-
     let gcd = super::gcd(u, v);
     let product = u * v;
-    let zero = T::zero();
 
-    if product < zero {
-        -product / gcd
-    } else {
-        product / gcd
-    }
+    product.abs() / gcd
 }
 
 #[test]
